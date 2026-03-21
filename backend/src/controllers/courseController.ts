@@ -7,7 +7,7 @@ class CourseController{
     async getCourses(req:Request,res:Response){
         try {
             const courses = await Course.find()
-            res.status(200).json({courses})
+            res.status(200).json({data:courses, message:"Correct"})
         } catch (error) {
             res.status(500).json({msg: "Internal Server Error"})
         }
@@ -23,7 +23,7 @@ class CourseController{
         })
         try {
             const savedCourse = await newCourse.save()
-            res.status(201).json(savedCourse)
+            res.status(201).json({savedCourse})
         } catch (error) {
             res.status(500).json({msg: "Internal Server Error"})
         }
