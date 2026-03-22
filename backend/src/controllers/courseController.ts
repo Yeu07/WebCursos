@@ -14,10 +14,11 @@ class CourseController{
     }
 
     async createCoursee(req:Request,res:Response){
-        const {name,thumbnail,videos} = req.body;
+        const {name,thumbnail,videos, description} = req.body;
 
         const newCourse = new Course({
             name:name,
+            description:description,
             thumbnail:thumbnail,
             videos:videos
         })
