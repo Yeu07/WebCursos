@@ -3,6 +3,7 @@ import { title } from "node:process";
 
 const courseSchema = new mongoose.Schema({
     name: String,
+    description: String,
     thumbnail: String,
     videos: [
         {
