@@ -9,7 +9,7 @@ class CourseController{
             const courses = await Course.find()
             res.status(200).json({data:courses, message:"Correct"})
         } catch (error) {
-            res.status(500).json({msg: "Internal Server Error"})
+            res.status(500).json({message: "Internal Server Error"})
         }
     }
 
@@ -25,7 +25,20 @@ class CourseController{
             const savedCourse = await newCourse.save()
             res.status(201).json({savedCourse})
         } catch (error) {
-            res.status(500).json({msg: "Internal Server Error"})
+            res.status(500).json({message: "Internal Server Error"})
+        }
+    }
+
+    async deleteCourse(req:Request, res:Response){
+         try {
+            const deletedCourse =  await Course.findByIdAndDelete(req.params.id)
+
+            if(!deletedCourse) res.status(404).json({message:"Curso no encontrado"})
+
+            res.status(200).json({message:"Nota Eliminada Correctamente"})
+        } catch (error) {
+
+            res.status(500).json({message:"Internal Server Error"})
         }
     }
 

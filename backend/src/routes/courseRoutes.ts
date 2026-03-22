@@ -7,5 +7,7 @@ courseRouter.get("/",courseController.getCourses);
 
 courseRouter.post("/",courseController.createCoursee)
 
+courseRouter.delete("/:id",courseController.deleteCourse)
+
 
 export default courseRouter;
