@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { ToastContainer, Bounce } from "react-toastify";
+import Navbar from "../components/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
-        {children}
+        <Navbar />
+
+        <main className="mt-10 px-6 max-w-7xl mx-auto">
+          {children}
+        </main>
 
         <ToastContainer
           position="bottom-right"
