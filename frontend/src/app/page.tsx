@@ -9,7 +9,7 @@ export default function Home() {
 
   useEffect(() => {
 
-    router.push("/Cursos")
+    router.push("/Inicio")
 
     return () => {
       
