@@ -1,4 +1,4 @@
-const API_BASE_URL = !!process.env.VERCEL_ENV ? process.env.NEXT_PUBLIC_BASE_BACKEND_URL : process.env.NEXT_PUBLIC_API;  
+const API_BASE_URL = !!process.env.NEXT_PUBLIC_VERCEL_ENV ? process.env.NEXT_PUBLIC_BASE_BACKEND_URL : process.env.NEXT_PUBLIC_API;  
 const HTTP_STATUS = {
   ok: 200,
   created: 201,
