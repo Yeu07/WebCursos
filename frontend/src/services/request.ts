@@ -37,21 +37,24 @@ const request = async <T>(
   defaultReturn: T | null = null,
 ): Promise<RequestResult<T>> => {
   try {
+    const isServerSide = typeof window === "undefined";
+
+    // localStorage solo existe en el cliente
+    const token = isServerSide ? null : localStorage.getItem("sessionToken");
+
     params.headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("sessionToken")}`,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(params.headers || {}),
     };
     params.mode = "cors";
-    params.timeout;
-    const isServerSide = typeof window === "undefined"; // True when server side rendering.
 
     const res = await fetch(`${API_BASE_URL}${url}`, params);
-
     const { data, message } = await res.json();
 
     if (res.status !== HTTP_STATUS.ok && res.status !== HTTP_STATUS.created)
       return { ok: false, data, status: res.status, message };
+
     return { ok: true, data, status: HTTP_STATUS.ok, message };
   } catch {
     return {
