@@ -1,8 +1,18 @@
-import 'dotenv/config';
-import express from 'express';
+import 'dotenv/config'
+import app from './app.js'
+import { connectDB } from './config/db.js';
 
-const app = express();
+async function main(){
+    try {
+        await connectDB();
+        app.listen(process.env.PORT || 5000, () => {
+            console.log("Activado")
+        })
+    } catch (error) {
+        if(error instanceof Error){
+            console.log(error.message)
+        }
+    }
+}
 
-app.listen(process.env.PORT, () => {
-    console.log("Activado");
-})
+main();
