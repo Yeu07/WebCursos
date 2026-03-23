@@ -5,8 +5,17 @@ class AuthController{
     constructor(){}
 
     async googleSuccess(req: Request, res: Response)  {
-        const jwt = generateJwt(req.user)
-        res.redirect(`http://localhost:3000/profile?jwt=${jwt}`);
+        const { _id, firstName, lastName, email, pictureUrl } = req.user as any;
+        const userData = {
+            sub:_id,
+            firstName,
+            lastName,
+            email,
+            pictureUrl
+        }
+        const jwt = generateJwt(userData)
+        const login_info = JSON.stringify({jwt, user:userData})
+        res.redirect(`http://localhost:3000/profile?login_info=${login_info}`);
     };
 }
 
