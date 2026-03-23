@@ -1,21 +1,11 @@
 'use client'
-import { createContext, useReducer, useContext } from 'react';
+import { createContext, useReducer, useContext, useEffect } from 'react';
 import { ToastContainer, Bounce } from "react-toastify";
 
-const getLoginInfo = (entity: string) => {
-  if (typeof window === "undefined") return null;  
-  const item = localStorage.getItem(entity);
-  if (!item) return null; 
-  try {
-    return JSON.parse(item);
-  } catch {
-    return null;
-  }
-}
 const initialState = {
-  isAuthenticated: !!getLoginInfo('jwt'),
-  user: getLoginInfo('user'),
-  jwt: getLoginInfo('jwt')
+  isAuthenticated: false ,
+  user: null ,
+  jwt: null 
 }
 
 export const AuthContext = createContext<any>(initialState);
@@ -39,11 +29,24 @@ const reducer = (state: any, action: any) => {
         user: null,
         jwt: null
       }
+    case "SET_LOGGED_USER":
+      return {...state,isAuthenticated:true, user:action.payload.user, jwt:action.payload.jwt}
+
   }
 }
 
+
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  
+  useEffect(() => {
+    const user = localStorage.getItem('user')
+    const jwt = localStorage.getItem('jwt')
+
+    if(!!jwt || !!user){
+      dispatch({type:"SET_LOGGED_USER",payload:{user,jwt}})
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
