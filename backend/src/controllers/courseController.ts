@@ -13,6 +13,16 @@ class CourseController{
         }
     }
 
+    async getCourseById(req:Request,res:Response){
+        const {id} = req.params 
+        try {
+            const course = await Course.findById(id)
+            res.status(200).json({data:course, message:"Correct"})
+        } catch (error) {
+            res.status(500).json({message: "Internal Server Error"})
+        }
+    }
+
     async createCoursee(req:Request,res:Response){
         const {name,thumbnail,videos, description} = req.body;
 
