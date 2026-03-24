@@ -38,7 +38,13 @@ export default function CourseDetail({ id }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">
-      <CourseHero course={course} totalVideos={totalVideos} totalDuration={totalDuration} />
+      <CourseHero 
+        course={course} 
+        totalVideos={totalVideos} 
+        totalDuration={totalDuration}
+        isAuthenticated={isAuthenticated}     
+        hasBoughtCourse={hasBoughtCourse}      
+      />
       <CourseSections 
         sections={course.sections ?? []} 
         isAuthenticated={isAuthenticated}
