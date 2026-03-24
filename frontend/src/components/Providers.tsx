@@ -1,6 +1,5 @@
 'use client'
 import { createContext, useReducer, useContext, useEffect } from 'react';
-import { ToastContainer, Bounce } from "react-toastify";
 
 const initialState = {
   isAuthenticated: false ,
@@ -14,7 +13,7 @@ const reducer = (state: any, action: any) => {
   switch(action.type){
     case "LOGIN":
       localStorage.setItem('user', JSON.stringify(action.payload.user))
-      localStorage.setItem('jwt', JSON.stringify(action.payload.jwt))
+      localStorage.setItem('jwt',action.payload.jwt)
       return {
         ...state,
         isAuthenticated: true,
@@ -23,6 +22,7 @@ const reducer = (state: any, action: any) => {
       }
     case "LOGOUT":
       localStorage.clear()
+      window.location.href = "/Inicio"
       return {
         ...state,
         isAuthenticated: false,
@@ -51,19 +51,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
       {children}
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
     </AuthContext.Provider>
   );
 }

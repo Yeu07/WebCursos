@@ -3,6 +3,7 @@ import cors from 'cors';
 import session from 'express-session';
 import courseRouter from './routes/courseRoutes.js';
 import authRouter from './routes/authRoutes.js';
+import paypalRouter from "./routes/paypalRoutes.js";
 import passport from './config/auth.js'
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(passport.session());
 
 app.use("/cursos",courseRouter)
 app.use('/auth', authRouter);
+app.use("/paypal", paypalRouter);
 
 
 export default app;

@@ -1,12 +1,14 @@
 'use client' 
 import { useRouter } from 'next/navigation'; 
 import Course from '../types/Course';
+import { useAuth } from './Providers';
 
 interface CourseCardProps {
   course: Course
 }
 
 export default function CourseCard({ course }: CourseCardProps) {
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
 
   const handleNavigation = () => {
