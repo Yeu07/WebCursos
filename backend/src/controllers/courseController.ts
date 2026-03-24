@@ -1,5 +1,9 @@
 import type { Request, Response } from "express";
 import Course from "../models/courseModel.js";
+import Sale from "../models/saleModel.js";
+import mongoose from "mongoose";
+import type { IUser } from '../models/userModel.js';
+import console from "node:console";
 
 class CourseController{
     constructor(){}
@@ -15,9 +19,17 @@ class CourseController{
 
     async getCourseById(req:Request,res:Response){
         const {id} = req.params 
+        
         try {
+            let hasBoughtTheCourse = null 
+            if(!!req.user){
+                hasBoughtTheCourse = !!await Sale.exists({
+                    course: new mongoose.Types.ObjectId(id as string),
+                    user: new mongoose.Types.ObjectId((req.user as IUser)._id)
+                });
+            }
             const course = await Course.findById(id)
-            res.status(200).json({data:course, message:"Correct"})
+            res.status(200).json({data:{...course?.toObject(), hasBoughtTheCourse}, message:"Correct"})
         } catch (error) {
             res.status(500).json({message: "Internal Server Error"})
         }

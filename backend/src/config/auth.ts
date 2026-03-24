@@ -38,7 +38,7 @@ passport.use(new GoogleStrategy({
     try {
       const email = profile.emails?.[0]?.value ?? null;
       const pictureUrl = profile.photos?.[0]?.value ?? null;
-      const user = await User.findOneAndReplace(
+      const user = await User.findOneAndUpdate(
         { googleId: profile.id },
         {
           $set: {

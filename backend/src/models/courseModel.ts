@@ -12,7 +12,7 @@ const courseSchema = new mongoose.Schema({
             recordedAt: String,
             recordingDay: String,
             realDuration:String,
-            videos: [{title: String,videoUrl: String,duration: String}]
+            videos: [{title: String,videoUrl: String,duration: String, free:Boolean}]
         }
     ]
 }, {
