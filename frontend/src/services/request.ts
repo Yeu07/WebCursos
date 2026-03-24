@@ -40,7 +40,7 @@ const request = async <T>(
     const isServerSide = typeof window === "undefined";
 
     // localStorage solo existe en el cliente
-    const token = isServerSide ? null : localStorage.getItem("sessionToken");
+    const token = isServerSide ? null : localStorage.getItem("jwt");
 
     params.headers = {
       "Content-Type": "application/json",
