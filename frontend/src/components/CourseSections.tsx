@@ -11,9 +11,11 @@ interface Section {
 
 interface Props {
   sections: Section[];
+  isAuthenticated: boolean;
+  hasBoughtCourse: boolean;
 }
 
-export default function CourseSections({ sections }: Props) {
+export default function CourseSections({ sections, isAuthenticated, hasBoughtCourse }: Props) {
   const [openSection, setOpenSection] = useState<number | null>(0);
 
   return (
@@ -41,7 +43,12 @@ export default function CourseSections({ sections }: Props) {
             {openSection === i && (
               <div className="divide-y divide-gray-800">
                 {section.videos?.map((video, j) => (
-                  <CourseVideoItem key={j} video={video} />
+                  <CourseVideoItem 
+                    key={j} 
+                    video={video}
+                    isAuthenticated={isAuthenticated}
+                    hasBoughtCourse={hasBoughtCourse}
+                  />
                 ))}
               </div>
             )}

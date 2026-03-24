@@ -4,7 +4,7 @@ import Course from "@/src/types/Course";
 import { getCourseById } from "@/src/services/courseServices";
 import CourseHero from "@/src/components/CourseHero";
 import CourseSections from "@/src/components/CourseSections";
-
+import { useAuth } from '../../../components/Providers';
 
 interface Props {
   id: string;
@@ -12,10 +12,16 @@ interface Props {
 
 export default function CourseDetail({ id }: Props) {
   const [course, setCourse] = useState<Course | null>(null);
+  const [hasBoughtCourse, setHasBoughtCourse] = useState<boolean>(false);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     getCourseById(id).then(res => {
-      if (res?.data) setCourse(res.data);
+      if (res?.data) {
+        const { hasBoughtTheCourse, ...courseData } = res.data as any;
+        setCourse(courseData);
+        setHasBoughtCourse(!!hasBoughtTheCourse);
+      }
     });
   }, [id]);
 
@@ -33,7 +39,11 @@ export default function CourseDetail({ id }: Props) {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       <CourseHero course={course} totalVideos={totalVideos} totalDuration={totalDuration} />
-      <CourseSections sections={course.sections ?? []} />
+      <CourseSections 
+        sections={course.sections ?? []} 
+        isAuthenticated={isAuthenticated}
+        hasBoughtCourse={hasBoughtCourse}
+      />
     </div>
   );
 }
