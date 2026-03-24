@@ -5,14 +5,16 @@ const courseSchema = new mongoose.Schema({
     name: String,
     description: String,
     thumbnail: String,
-    videos: [
+    price: String,
+    sections:[
         {
-            title: String,
-            videoUrl: String,
-            duration: String
+            name:String,
+            recordedAt: String,
+            recordingDay: String,
+            realDuration:String,
+            videos: [{title: String,videoUrl: String,duration: String}]
         }
     ]
-    
 }, {
     timestamps: true
 })

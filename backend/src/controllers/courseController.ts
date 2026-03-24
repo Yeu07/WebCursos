@@ -24,13 +24,14 @@ class CourseController{
     }
 
     async createCoursee(req:Request,res:Response){
-        const {name,thumbnail,videos, description} = req.body;
+        const {name,thumbnail, description, price, sections} = req.body;
 
         const newCourse = new Course({
             name:name,
             description:description,
             thumbnail:thumbnail,
-            videos:videos
+            price:price,
+            sections:sections
         })
         try {
             const savedCourse = await newCourse.save()
