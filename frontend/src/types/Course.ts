@@ -3,11 +3,14 @@ export default interface Course{
     name: string,
     description:string,
     thumbnail: string,
-    videos: [
+    price: string,
+    sections:[
         {
-            title: string,
-            videoUrl: string,
-            duration: string
+            name:string,
+            recordedAt: string,
+            recordingDay: string,
+            realDuration:string,
+            videos: [{title: string,videoUrl: string,duration: string}]
         }
     ]
 
